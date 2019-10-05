@@ -1,0 +1,10 @@
+cd ../osrm-backend
+
+mkdir map
+cd map
+
+wget -O test.osm "https://overpass-api.de/api/map?bbox=-121.5802,37.7419,-120.9698,38.1437"
+
+../build/osrm-extract test.osm -p ../profiles/car.lua
+../build/osrm-contract test.osrm
+../build/osrm-routed test.osrm

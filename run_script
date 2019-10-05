@@ -1,0 +1,2 @@
+cd ../osrm-backend
+./build/osrm-routed ./map/test.osrm

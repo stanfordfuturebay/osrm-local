@@ -10,27 +10,19 @@ We've prepared some scripts that need to be run in Linux on the Ubuntu Operating
 
 ### Installing
 
-The following commands clone a Github repo with scripts then run them. You might be familiar with Ctrl+C and Ctrl+V but find that it doesn't work in the Ubuntu terminal -- you can instead use right-click to paste, and selecting within the terminal serves as copy. So you can Ctrl+C one line at a time from below and right-click paste into the terminal. This course isn't meant to get into Linux any deeper, but if you've never used it before, two other bare minimum commands to know:
+The first few lines need to be run to build the back-end infrastructure of OSRM. 
+
+You might be familiar with Ctrl+C and Ctrl+V but find that it doesn't work in the Ubuntu terminal -- you can instead use right-click to paste, and selecting within the terminal serves as copy. So you can Ctrl+C one line at a time from below and right-click paste into the terminal. This course isn't meant to get into Linux any deeper, but if you've never used it before, two other bare minimum commands to know:
 
 - ```cd```: change directory. You start in your home directory, and once you have other folders to travel to you essentially just type ```cd [name of the folder]```. You see that done in the code below. You can go back up to a parent folder using ```cd ..```. To go all the way back to your home, use ```cd ~```. A few more examples [here](https://www.tecmint.com/cd-command-in-linux/).
 - ```ls```: list. Lists what is in the current directory. Just type it whenever. More examples [here](https://www.tecmint.com/15-basic-ls-command-examples-in-linux/).
 
-The ```chmod``` commands set the permissions. You will be prompted for your ubuntu password. 
+Other notes: 
 
-```
-git clone https://github.com/stanfordfuturebay/osrm_local
-cd osrm_local
-chmod 755 install_script
-./install_script
+- You will need to create a Github account, as you will be prompted for your username and password.
+- You will be prompted for your Ubuntu password. 
 
-chmod 755 first_run_script
-./first_run_script
-
-chmod 755 run_script
-./run_script
-```
-
-Continue to copy and paste each line below to build the local OSRM instance. This is based on the methodology found [here](https://datawookie.netlify.com/blog/2017/09/building-a-local-osrm-instance/).
+Run the following lines one-by-one. This is based on the methodology found [here](https://datawookie.netlify.com/blog/2017/09/building-a-local-osrm-instance/).
 
 ```bash
 sudo apt update
@@ -56,44 +48,55 @@ Create a map directory and change to it to prevent clutter in the parent directo
 
 There are multiple ways to grab OSM data, depending on what you need for your analysis.
 
-1. Go to the [OpenStreetMap Export page](https://www.openstreetmap.org/export#map=7/36.748/-120.256), select "Manually select a different area", and then crop a region that contains all of the the transportation network you need. In most cases the best option is to right-click on "Overpass API", copy the link address, and then use that to replace the URL in the ```wget``` line below. 
+1. Go to the [OpenStreetMap Export page](https://www.openstreetmap.org/export#map=7/36.748/-120.256), select "Manually select a different area", and then crop a region that contains all of the the transportation network you need. In most cases the best option is to right-click on "Overpass API", copy the link address, and then use that to replace the URL in the ```wget``` line below. The default URL shown below grabs a section of map that contains SF, the Peninsula, and Silicon Valley.
+2. It's possible your selection is too big for the Overpass API (e.g. bigger than the Bay Area), in which case you likely need to go to [Geofabrik](https://download.geofabrik.de/) and download all of CA. Your call then would look like ```wget -O ca.osm.pbf "https://download.geofabrik.de/north-america/us/california-latest.osm.pbf"```. Note the file type has changed to osm.pbf.
 
 ```
 mkdir map
 cd map
 
-wget -O test.osm "https://overpass-api.de/api/map?bbox=-121.5802,37.7419,-120.9698,38.1437"
+wget -O mymap.osm "https://overpass-api.de/api/map?bbox=-122.5298,37.2101,-121.7525,37.8136"
 ```
 
 ### Creating the OSRM Object and Running
 
-Run the lines below while still in the map directory. It creates all of the needed graph objects inside the directory that the input OSM file is located. By doing this, it prevents the parent directory from getting too cluttered and makes deletion of files easy to create another graph object. Although, if you just use a different name then it's not a problem. 
+Run the lines below while still in the map directory. It creates all of the needed graph objects inside the directory that the input OSM file is located in. By doing this, it prevents the parent directory from getting too cluttered and makes deletion of files easy to create another graph object. Although, if you just use a different name then it's not a problem. 
 
-Imperfect explanation of what's goin on:
+Imperfect explanation of what's going on:
 
-1st line:  creating an OSRM object from the data downloaded
-
-2nd line: creating the contraction hierarchies (see the documentation on GitHub for explanation)
-
-3rd line: runs OSRM. Note, only this line has to be run in the future to get OSRM up and running. Have to be inside of the map directory to run this line as is, otherwise modify extensions as appropriate. 
+- 1st line: creating an OSRM object from the data downloaded, using the car profile (this can be switched with bicycle.lua and foot.lua)
+- 2nd line: creating the contraction hierarchies, which facilitate finding the shortest route between two points.
+- 3rd line: runs OSRM. Note, only this line has to be run in the future to get OSRM up and running. Have to be inside of the map directory to run this line as is -- otherwise modify extensions as appropriate. 
 
 ```
-../build/osrm-extract test.osm -p ../profiles/car.lua
-../build/osrm-contract test.osrm
-../build/osrm-routed test.osrm
+../build/osrm-extract mymap.osm -p ../profiles/car.lua
+../build/osrm-contract mymap.osrm
+../build/osrm-routed mymap.osrm
 ```
 
-#### Future things to consider
+Once the last line above has been run, you'll see it say ```running and waiting for requests```. then keep the Ubuntu window open and then switch to R. In your scripts, make sure you have the following at the top:
 
-* 
+```
+library(osrm)
+options(osrm.server = "http://127.0.0.1:5000/")
+```
 
+After all of this has been done once, then in the future, to get your local server, just do the following:
+
+1. Open the Ubuntu app
+2. Type the following commands
+
+```
+cd osrm-backend
+cd map
+../build/osrm-routed mymap.osrm
+```
 
 ## MacOS
 
+For help with the Mac version, reach out to Max, who is continuing to streamline the process.
 
 ### Installing
-
-So, somehow I got it installed and I’m not really quite sure how that happened. 
 
 Followed roughly the first half of the instructions [here](https://gist.github.com/jyt109/76eba9b502e2c90bb728) to get it running. When trying to follow the quickstart guide [here](<https://github.com/Project-OSRM/osrm-backend/wiki/Building-OSRM>), it seems like the "mason" folder isn't created. But, once I install all of the dependencies etc., I then run the 
 
@@ -103,8 +106,6 @@ make
 ```
 
 lines and it seems to have worked. In fact, I know it works because when I go to start it up following the instructions [here](<https://github.com/Project-OSRM/osrm-backend/wiki/Running-OSRM>), it does in fact work. The final code I ran should look something like this: 
-
-
 
 #### Install example code
 
@@ -125,19 +126,15 @@ make
 
 ```
 
-
-
 ### Running
 
 I first tried running these commands from the [wiki](<https://github.com/Project-OSRM/osrm-backend/wiki/Running-OSRM>).
 
-Simple checklist that will make sense after reading throught the code and comments. 
+Simple checklist that will make sense after reading through the code and comments. 
 
 * Double check that the file names are correct. 
 * You actually have to use "./" before the commands to get them to run AND if things are floating around in different directories, you have to include that as well. 
   * May not actually need the "./" but it doesn't hurt. 
-
-
 
 #### From the wiki
 
@@ -156,8 +153,6 @@ osrm-customize berlin.osrm
 
 osrm-routed --algorithm=MLD berlin.osrm 
 ```
-
-
 
 #### Actual commands
 

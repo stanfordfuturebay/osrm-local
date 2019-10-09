@@ -52,6 +52,7 @@ There are multiple ways to grab OSM data, depending on what you need for your an
 2. It's possible your selection is too big for the Overpass API (e.g. bigger than the Bay Area), in which case you likely need to go to [Geofabrik](https://download.geofabrik.de/) and download all of CA. Your call then would look like ```wget -O ca.osm.pbf "https://download.geofabrik.de/north-america/us/california-latest.osm.pbf"```. Note the file type has changed to osm.pbf.
 
 ```
+cd ~/osrm-backend
 mkdir map
 cd map
 

@@ -115,7 +115,8 @@ lines and it seems to have worked. In fact, I know it works because when I go to
 brew install boost git cmake protobuf libzip libstxxl libxml2 osm-pbf lua51 luajit luabind tbb
 brew uninstall lua 
 brew install GDAL                                          
-brew install osmosis                                       
+brew install osmosis
+brew install wget
 git clone https://github.com/Project-OSRM/osrm-backend.git 
 cd osrm-backend                                            
 mkdir -p build                                             

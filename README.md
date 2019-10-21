@@ -98,7 +98,9 @@ cd map
 For help with the Mac version, reach out to Max, who is continuing to streamline the process.
 
 You'll need to start by installing homebrew. You can do that by running the command below.
+```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
 
 ### Installing
 

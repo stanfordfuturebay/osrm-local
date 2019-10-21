@@ -97,6 +97,9 @@ cd map
 
 For help with the Mac version, reach out to Max, who is continuing to streamline the process.
 
+You'll need to start by installing homebrew. You can do that by running the command below.
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
 ### Installing
 
 Followed roughly the first half of the instructions [here](https://gist.github.com/jyt109/76eba9b502e2c90bb728) to get it running. When trying to follow the quickstart guide [here](<https://github.com/Project-OSRM/osrm-backend/wiki/Building-OSRM>), it seems like the "mason" folder isn't created. But, once I install all of the dependencies etc., I then run the 
@@ -109,6 +112,8 @@ make
 lines and it seems to have worked. In fact, I know it works because when I go to start it up following the instructions [here](<https://github.com/Project-OSRM/osrm-backend/wiki/Running-OSRM>), it does in fact work. The final code I ran should look something like this: 
 
 #### Install example code
+
+Note that during this process, you may get a number of error messages if any of the packages are already on your machine. No need to worry as this is okay. 
 
 ```
 # from the gist
@@ -141,19 +146,19 @@ Simple checklist that will make sense after reading through the code and comment
 #### From the wiki
 
 ```
-# This just downloads the osm file that everyone seems to use as an example. 
-wget http://download.geofabrik.de/europe/germany/berlin-latest.osm.pbf
+# NorCal extract. 
+wget https://download.geofabrik.de/north-america/us/california/norcal-latest.osm.pbf
 
 # The following functions extract the compressed file and get it read to run. Note that this is it appears on the website. 
-osrm-extract berlin.osm.pbf
+osrm-extract norcal-latest.osm.pbf
 
 # On online post and the CH, the alternate version of the first line is as follows, this is the one you should probably use. When attempting to run the first version as is, you may get a message that says something like "car.lua" doesn't exist. 
 
-osrm-extract berlin-latest.osm.pbf -p profiles/car.lua
-osrm-partition berlin.osrm
-osrm-customize berlin.osrm
+osrm-extract norcal-latest.osm.pbf -p profiles/car.lua
+osrm-partition norcal-latest.osm
+osrm-customize norcal-latest.osm
 
-osrm-routed --algorithm=MLD berlin.osrm 
+osrm-routed --algorithm=MLD norcal-latest.osm.osrm 
 ```
 
 #### Actual commands
@@ -161,8 +166,8 @@ osrm-routed --algorithm=MLD berlin.osrm
 ```
 # This is the terminal input with the current directory set to the osrm-backend file directly downloaded from GitHub
 
-./build/osrm-extract berlin-latest.osm.pbf -p profiles/car.lua
-build/osrm-partition berlin-latest.osrm
-build/osrm-customize berlin-latest.osrm
-build/osrm-routed --algorithm=MLD berlin-latest.osrm
+./build/osrm-extract norcal-latest.osm.pbf -p profiles/car.lua
+build/osrm-partition norcal-latest.osm
+build/osrm-customize norcal-latest.osm
+build/osrm-routed --algorithm=MLD norcal-latest.osm
 ```

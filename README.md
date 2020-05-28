@@ -48,15 +48,15 @@ Create a map directory and change to it to prevent clutter in the parent directo
 
 There are multiple ways to grab OSM data, depending on what you need for your analysis.
 
-1. Go to the [OpenStreetMap Export page](https://www.openstreetmap.org/export#map=7/36.748/-120.256), select "Manually select a different area", and then crop a region that contains all of the the transportation network you need. In most cases the best option is to right-click on "Overpass API", copy the link address, and then use that to replace the URL in the ```wget``` line below. The default URL shown below grabs a section of map that contains SF, the Peninsula, and Silicon Valley.
-2. It's possible your selection is too big for the Overpass API (e.g. bigger than the Bay Area), in which case you likely need to go to [Geofabrik](https://download.geofabrik.de/) and download all of CA. Your call then would look like ```wget -O ca.osm.pbf "https://download.geofabrik.de/north-america/us/california-latest.osm.pbf"```. Note the file type has changed to osm.pbf.
+1. Go to the [OpenStreetMap Export page](https://www.openstreetmap.org/export#map=7/36.748/-120.256), select "Manually select a different area", and then crop a region that contains all of the the transportation network you need. In most cases the best option is to right-click on "Overpass API", copy the link address, and then use that like `wget -O mymap.osm "https://overpass-api.de/api/map?bbox=-122.5298,37.2101,-121.7525,37.8136"`.
+2. It's possible your selection is too big for the Overpass API (e.g. bigger than the Bay Area), in which case you likely need to go to [Geofabrik](https://download.geofabrik.de/) and download all of CA. Your call then would look like the one shown below. Note the file type has changed to osm.pbf.
 
 ```
 cd ~/osrm-backend
 mkdir map
 cd map
 
-wget -O mymap.osm "https://overpass-api.de/api/map?bbox=-122.5298,37.2101,-121.7525,37.8136"
+wget -O ca.osm.pbf "https://download.geofabrik.de/north-america/us/california-latest.osm.pbf"
 ```
 
 ### Creating the OSRM Object and Running

@@ -65,12 +65,12 @@ Run the lines below while still in the map directory. It creates all of the need
 
 Imperfect explanation of what's going on:
 
-- 1st line: creating an OSRM object from the data downloaded, using the car profile (this can be switched with bicycle.lua and foot.lua)
+- 1st line: creating an OSRM object from the data downloaded, using the car profile (this can be switched with bicycle.lua and foot.lua). We are not sure at the moment whether you can extract all 3 types of profiles into the same directory, but it doesn't hurt to create them in separate directories. Include the `.pbf` if your previous `wget` call included it; leave it off otherwise. 
 - 2nd line: creating the contraction hierarchies, which facilitate finding the shortest route between two points.
 - 3rd line: runs OSRM. Note, only this line has to be run in the future to get OSRM up and running. Have to be inside of the map directory to run this line as is -- otherwise modify extensions as appropriate. 
 
 ```
-../build/osrm-extract mymap.osm -p ../profiles/car.lua
+../build/osrm-extract mymap.osm.pbf -p ../profiles/car.lua
 ../build/osrm-contract mymap.osrm
 ../build/osrm-routed mymap.osrm
 ```
@@ -95,7 +95,7 @@ cd map
 
 ## MacOS
 
-For help with the Mac version, reach out to Max, who is continuing to streamline the process.
+The Mac method has caused more issues than the PC method for students. Reach out to the teaching team for assistance.
 
 You'll need to start by installing homebrew. You can do that by running the command below.
 ```

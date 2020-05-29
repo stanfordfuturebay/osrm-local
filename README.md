@@ -26,20 +26,19 @@ Run the following lines one-by-one. This is based on the methodology found [here
 
 ```bash
 sudo apt update
-sudo apt install -y git cmake build-essential jq htop
-sudo apt install -y liblua5.2-dev libboost-all-dev libprotobuf-dev libtbb-dev libstxxl-dev libbz2-dev
+sudo apt install build-essential git cmake pkg-config \
+libbz2-dev libxml2-dev libzip-dev libboost-all-dev \
+lua5.2 liblua5.2-dev libtbb-dev
 
 git clone --branch v5.18.0 https://github.com/Project-OSRM/osrm-backend.git
 
 cd osrm-backend/
 
-mkdir build
-cd build/
+mkdir -p build
+cd build
 cmake ..
-
-make
-
-sudo make install
+cmake --build .
+sudo cmake --build . --target install
 ```
 
 ### Downloading OSM Data

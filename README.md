@@ -55,7 +55,7 @@ cd ~/osrm-backend
 mkdir map
 cd map
 
-wget -O ca.osm.pbf "https://download.geofabrik.de/north-america/us/california/norcal-latest.osm.pbf"
+wget -O mymap.osm.pbf "https://download.geofabrik.de/north-america/us/california/norcal-latest.osm.pbf"
 ```
 
 ### Creating the OSRM Object and Running

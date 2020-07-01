@@ -6,7 +6,7 @@ These instructions are for creating a local OSRM (Open Source Routing Machine) i
 
 ### Install Ubuntu
 
-We've prepared some scripts that need to be run in Linux on the Ubuntu Operating System, so you'll need to install Ubuntu on Windows to execute them. The following steps are only tested to work for version 18.04, so you should download that [here](https://releases.ubuntu.com/18.04/). You'll need to create an admin password for Ubuntu during the install process. This password is separate from your Windows password. 
+We've prepared some scripts that need to be run in Linux on the Ubuntu Operating System, so you'll need to install Ubuntu on Windows to execute them. The following steps are only tested to work for version 18.04, so you should download that version. The easiest method is using the Microsoft Store, [here](https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q?activetab=pivot:overviewtab). You'll need to create an admin password for Ubuntu during the install process. This password is separate from your Windows password. 
 
 ### Installing
 

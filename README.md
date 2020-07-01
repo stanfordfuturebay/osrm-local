@@ -22,7 +22,7 @@ Other notes:
 - You will need to create a Github account, as you will be prompted for your username and password.
 - You will be prompted for your Ubuntu password. 
 
-Run the following lines one-by-one. This is based on the methodology found [here](https://datawookie.netlify.com/blog/2017/09/building-a-local-osrm-instance/).
+Run the following lines one-by-one. This is based on the methodology found [here](https://github.com/Project-OSRM/osrm-backend).
 
 ```bash
 sudo apt update
